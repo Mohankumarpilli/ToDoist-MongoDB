@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const User = require("./model/User");
+require("dotenv").config();
 const Project = require("./model/Projects");
 const Task = require("./model/Tasks");
 const app = express();
@@ -99,13 +100,11 @@ app.post("/api/task", async (req, res) => {
 });
 
 mongoose
-  .connect(
-    "mongodb+srv://mohankumarpilli15:mohan@back-end-db.5gr5bij.mongodb.net/?retryWrites=true&w=majority&appName=Back-End-DB"
-  )
+  .connect(process.env.MONGO_URI)
   .then(() => {
     console.log("database is connected");
-    app.listen(3000, () => {
-      console.log("server is running at port 3000");
+    app.listen(process.env.PORT, () => {
+      console.log("server is running at port", process.env.PORT);
     });
   })
   .catch((e) => {
